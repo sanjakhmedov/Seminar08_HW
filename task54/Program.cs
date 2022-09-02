@@ -40,24 +40,32 @@ void PrintMatrix(int[,] matr)
     }
 }
 
-int[,] matrix = CreateMatrixRndInt(4, 4, 0, 9);
-PrintMatrix(matrix);
 
 void DescendingRow(int[,] matr)
 {
-    int temp = matr[0, 0];
-    for (int i = 0; i < matr.GetLength(0); i++)
+    int row = matr.GetLength(0);
+    int col = matr.GetLength(1);
+
+    int temp = 0;
+    for (int i = 0; i < row; i++)
     {
-        for (int j = 1; j < matr.GetLength(1); j++)
+        for (int j = 0; j < col; j++)
         {
-            if (matr[i, j] > temp)
+            for (int k = 0; k < col - j - 1; k++)
             {
-                
+                if(matr[i, k] < matr[i, k + 1])
+                {
+                    temp = matr[i, k];
+                    matr[i, k] = matr[i, k + 1];
+                    matr[i, k + 1] = temp;
+                }
             }
         }
     }
 }
 
+int[,] matrix = CreateMatrixRndInt(4, 4, 0, 9);
+PrintMatrix(matrix);
 DescendingRow(matrix);
 Console.WriteLine();
 PrintMatrix(matrix);
